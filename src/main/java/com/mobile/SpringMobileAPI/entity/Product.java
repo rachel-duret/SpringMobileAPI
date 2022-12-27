@@ -1,20 +1,39 @@
 package com.mobile.SpringMobileAPI.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 
 import java.util.Date;
 @Entity
+@Table(
+        name = "product",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "product_model_unique", columnNames = "model")
+        }
+)
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Column(
+            updatable = false,
+            nullable = false
+    )
     private int id;
+
+@Column(nullable = false, updatable = false)
     private String brand;
+
+@Column(nullable = false, updatable = false)
     private String model;
+
+@Column(nullable = false)
     private double price;
+
+@Column(nullable = false)
     private  String description;
+
+@Column(nullable = false)
     private Date createdAt;
     private Date updateAt;
 
