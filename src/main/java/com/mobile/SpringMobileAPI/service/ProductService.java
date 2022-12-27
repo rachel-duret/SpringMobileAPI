@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService implements ProductServiceInterface {
@@ -16,8 +17,18 @@ public class ProductService implements ProductServiceInterface {
         return productRepository.findAll();
     }
 
+    @Override
+    public Product addOneProduct(Product product) {
+        return productRepository.save(product);
+    }
 
+    @Override
+    public Optional<Product> getOneProduct(int id) {
+        return productRepository.findById(id);
+    }
 
-
-
+    @Override
+    public void deleteOneProduct(int id) {
+         productRepository.deleteById(id);
+    }
 }
