@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+
 @RestController
 @RequestMapping(path = "/api/mobile")
 public class ProductController {
@@ -58,7 +59,6 @@ public class ProductController {
 //    Delete one product
     @DeleteMapping("/products/{id}")
     public void deleteOneProduct(@PathVariable int id){
-        System.out.println(id);
         productService.deleteOneProduct(id);
 
     }
