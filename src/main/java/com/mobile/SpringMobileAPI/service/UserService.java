@@ -1,8 +1,6 @@
 package com.mobile.SpringMobileAPI.service;
 
-import com.mobile.SpringMobileAPI.entity.Client;
 import com.mobile.SpringMobileAPI.entity.User;
-import com.mobile.SpringMobileAPI.repository.ClientRepository;
 import com.mobile.SpringMobileAPI.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

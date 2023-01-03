@@ -33,9 +33,9 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "client_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Client client;
+    private AppUser client;
 
-    public User(int id, String username, String email, Date createdAt, Client client) {
+    public User(int id, String username, String email, Date createdAt, AppUser client) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -75,11 +75,11 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    public Client getClient() {
+    public AppUser getClient() {
         return client;
     }
 
-    public void setClient(Client client) {
+    public void setClient(AppUser client) {
         this.client = client;
     }
 }

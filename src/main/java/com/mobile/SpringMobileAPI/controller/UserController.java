@@ -1,12 +1,9 @@
 package com.mobile.SpringMobileAPI.controller;
 
-import com.mobile.SpringMobileAPI.entity.Client;
 import com.mobile.SpringMobileAPI.entity.User;
-import com.mobile.SpringMobileAPI.repository.UserRepository;
 import com.mobile.SpringMobileAPI.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,11 +11,6 @@ import java.util.Optional;
 @RequestMapping(path = "api/mobile")
 public class UserController {
     private UserService userService;
-    private final UserRepository userRepository;
-
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     //    Add one Client
     @PostMapping(path = "/users")

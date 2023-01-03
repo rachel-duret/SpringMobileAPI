@@ -1,6 +1,5 @@
 package com.mobile.SpringMobileAPI.service;
 
-import com.mobile.SpringMobileAPI.entity.Client;
 import com.mobile.SpringMobileAPI.entity.User;
 
 import java.util.List;
