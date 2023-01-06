@@ -1,22 +1,32 @@
 package com.mobile.SpringMobileAPI.service;
 
+import com.mobile.SpringMobileAPI.dto.RegisterDto;
+import com.mobile.SpringMobileAPI.entity.AppUser;
+import com.mobile.SpringMobileAPI.entity.Product;
 import com.mobile.SpringMobileAPI.repository.AppUserRepository;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
-public class AppUserService implements UserDetailsService {
+import java.util.Optional;
 
-    private final static String USER_NOT_FOUND = "User with %s not found";
+@Service
+
+public class AppUserService {
+
     private AppUserRepository appUserRepository;
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return appUserRepository.findBy(email)
-                .orElseThrow(()->
-                        new UsernameNotFoundException(
-                            String.format(USER_NOT_FOUND, email)
-                ));
+
+
+    public AppUserService(AppUserRepository appUserRepository) {
+        this.appUserRepository = appUserRepository;
     }
+
+    public boolean existsByEmail(String email){
+        return  appUserRepository.existsByEmail(email);
+    }
+
+    public AppUser addOneUser(AppUser appUser){
+        return  appUserRepository.save(appUser);
+
+    }
+
 }

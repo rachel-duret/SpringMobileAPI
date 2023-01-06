@@ -5,9 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
+import java.util.*;
 
 @Entity
 @Table(
@@ -17,12 +15,12 @@ import java.util.Date;
         }
 )
 
-public class AppUser implements UserDetails {
+public class AppUser {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    @Column(nullable = false, updatable = false, unique = true)
+
     private int id;
 
     @Column(nullable = false, updatable = false, unique = true)
@@ -37,11 +35,12 @@ public class AppUser implements UserDetails {
     @Column(nullable = false)
     private Date createdAt;
 
-    @Column(nullable = false)
-    private Date updatedAt;
 
-    @Column(nullable = false)
-    private AppUserRole appUserRole;// ROLE_USER{ read, edit }, ROLE_ADMIN{ delete }
+
+//    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @JoinTable(name = "app_user_roles", joinColumns = @JoinColumn(name = "app_user_id", referencedColumnName = "id"),
+//    inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+//    private List<AppUserRole> roles = new ArrayList<>();
 
     private boolean isActive;
     private boolean isNotLocked;
@@ -49,21 +48,14 @@ public class AppUser implements UserDetails {
     public AppUser() {
     }
 
-    public AppUser(String appUsername, String email, String password, Date createdAt, Date updatedAt, AppUserRole appUserRole, boolean isActive, boolean isNotLocked) {
+    public AppUser(int id, String appUsername, String email, String password, Date createdAt,  boolean isActive, boolean isNotLocked) {
+        this.id = id;
         this.appUsername = appUsername;
         this.email = email;
         this.password = password;
         this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.appUserRole = appUserRole;
         this.isActive = isActive;
         this.isNotLocked = isNotLocked;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(appUserRole.name());
-        return Collections.singletonList(authority);
     }
 
     public int getId() {
@@ -74,12 +66,28 @@ public class AppUser implements UserDetails {
         this.id = id;
     }
 
+    public String getAppUsername() {
+        return appUsername;
+    }
+
+    public void setAppUsername(String appUsername) {
+        this.appUsername = appUsername;
+    }
+
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Date getCreatedAt() {
@@ -90,41 +98,28 @@ public class AppUser implements UserDetails {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
-        return updatedAt;
+
+//    public List<AppUserRole> getRoles() {
+//        return roles;
+//    }
+
+//    public void setRoles(List<AppUserRole> roles) {
+//        this.roles = roles;
+//    }
+
+    public boolean isActive() {
+        return isActive;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
-    @Override
-    public String getPassword() {
-        return password;
+    public boolean isNotLocked() {
+        return isNotLocked;
     }
 
-    @Override
-    public String getUsername() {
-        return appUsername;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return !isNotLocked;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
+    public void setNotLocked(boolean notLocked) {
+        isNotLocked = notLocked;
     }
 }

@@ -31,16 +31,19 @@ public class User {
     private Date createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "client_id", nullable = false)
+    @JoinColumn(name = "app_user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private AppUser client;
+    private AppUser appUser;
 
-    public User(int id, String username, String email, Date createdAt, AppUser client) {
+    public User() {
+    }
+
+    public User(int id, String username, String email, Date createdAt, AppUser appUser) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.createdAt = createdAt;
-        this.client = client;
+        this.appUser = appUser;
     }
 
     public int getId() {
@@ -75,11 +78,11 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    public AppUser getClient() {
-        return client;
+    public AppUser getAppUser() {
+        return appUser;
     }
 
-    public void setClient(AppUser client) {
-        this.client = client;
+    public void setAppUser(AppUser appUser) {
+        this.appUser = appUser;
     }
 }
