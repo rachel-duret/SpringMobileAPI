@@ -31,9 +31,7 @@ public class AppUserSecurityService implements UserDetailsService {
         return new User(appUser.getEmail(), appUser.getPassword(), new ArrayList<>());
 
     }
-//    private Collection<GrantedAuthority> mapRolesToAuthorities(List<AppUserRole> roles){
-//        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
-//    }
+
 
 
 }

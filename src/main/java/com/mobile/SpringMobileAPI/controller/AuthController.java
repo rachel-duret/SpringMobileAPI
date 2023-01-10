@@ -1,10 +1,12 @@
 package com.mobile.SpringMobileAPI.controller;
 
+import com.mobile.SpringMobileAPI.dto.AuthResponseDto;
 import com.mobile.SpringMobileAPI.dto.LoginDto;
 import com.mobile.SpringMobileAPI.dto.RegisterDto;
 import com.mobile.SpringMobileAPI.entity.AppUser;
 import com.mobile.SpringMobileAPI.repository.AppUserRepository;
 import com.mobile.SpringMobileAPI.security.AppUserSecurityService;
+import com.mobile.SpringMobileAPI.security.jwt.JwtGenerator;
 import com.mobile.SpringMobileAPI.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,16 +29,20 @@ public class AuthController {
     private AppUserService appUserService;
     private AppUserRepository appUserRepository;
 
+    private JwtGenerator jwtGenerator;
+
     @Autowired
     public AuthController(AuthenticationManager authenticationManager,
                           PasswordEncoder passwordEncoder,
                           AppUserSecurityService appUserSecurityService,
                           AppUserService appUserService,
+                          JwtGenerator jwtGenerator,
                           AppUserRepository appUserRepository) {
         this.authenticationManager = authenticationManager;
         this.passwordEncoder = passwordEncoder;
         this.appUserSecurityService = appUserSecurityService;
         this.appUserService = appUserService;
+        this.jwtGenerator = jwtGenerator;
         this.appUserRepository = appUserRepository;
     }
 
@@ -65,12 +71,12 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginDto loginDto){
 
-        UsernamePasswordAuthenticationToken token =
+        UsernamePasswordAuthenticationToken usernamePasswordAuthentication =
                 new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword());
 //        Authentication Manager will take this token try to find the user then
-       Authentication authentication = authenticationManager.authenticate(token);
-        System.out.println(loginDto.getEmail());
+       Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthentication);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return new ResponseEntity<>("login success", HttpStatus.OK);
+        String jwtToken = jwtGenerator.generateToken(authentication);
+        return new ResponseEntity<>(jwtToken, HttpStatus.OK);
     }
 }
