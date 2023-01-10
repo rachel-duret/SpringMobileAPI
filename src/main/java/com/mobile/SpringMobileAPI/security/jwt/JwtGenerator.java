@@ -15,14 +15,13 @@ import java.util.Date;
 
 @Component
 public class JwtGenerator {
-    private static final int expireInMs = 300*1000*1000;
-    private static final String SECRET = "eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ";
-    public static final Key key = new SecretKeySpec(Base64.getDecoder().decode(SECRET), SignatureAlgorithm.HS256.getJcaName());
+
+    public static final Key key = new SecretKeySpec(Base64.getDecoder().decode(JwtConstants.SECRET), SignatureAlgorithm.HS256.getJcaName());
     public String generateToken(Authentication authentication){
 //        Build JWT token
         return Jwts.builder()
                 .setSubject(authentication.getName())
-                .setExpiration(new Date( System.currentTimeMillis() + expireInMs))
+                .setExpiration(new Date( System.currentTimeMillis() + JwtConstants.EXPIRE_IN_MS))
                 .signWith(key)
                 .compact();
 
