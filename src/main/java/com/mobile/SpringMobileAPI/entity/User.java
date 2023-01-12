@@ -1,5 +1,6 @@
 package com.mobile.SpringMobileAPI.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -13,6 +14,7 @@ import java.util.Date;
                 @UniqueConstraint(name = "user_email_unique", columnNames = "email")
         }
 )
+
 public class User {
 
     @Id
@@ -30,7 +32,7 @@ public class User {
     @Column(nullable = false)
     private Date createdAt;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "app_user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private AppUser appUser;

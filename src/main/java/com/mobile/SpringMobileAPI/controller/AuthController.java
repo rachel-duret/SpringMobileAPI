@@ -1,6 +1,5 @@
 package com.mobile.SpringMobileAPI.controller;
 
-import com.mobile.SpringMobileAPI.dto.AuthResponseDto;
 import com.mobile.SpringMobileAPI.dto.LoginDto;
 import com.mobile.SpringMobileAPI.dto.RegisterDto;
 import com.mobile.SpringMobileAPI.entity.AppUser;

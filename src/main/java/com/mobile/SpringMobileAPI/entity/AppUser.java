@@ -1,9 +1,6 @@
 package com.mobile.SpringMobileAPI.entity;
 
 import jakarta.persistence.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
 
@@ -97,15 +94,6 @@ public class AppUser {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
-
-
-//    public List<AppUserRole> getRoles() {
-//        return roles;
-//    }
-
-//    public void setRoles(List<AppUserRole> roles) {
-//        this.roles = roles;
-//    }
 
     public boolean isActive() {
         return isActive;

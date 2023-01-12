@@ -5,6 +5,8 @@ import com.mobile.SpringMobileAPI.repository.ProductRepository;
 import com.mobile.SpringMobileAPI.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -18,8 +20,6 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
-    @Autowired
-    private ProductRepository productRepository;
 
     //    Get all product route
     @GetMapping("/products")
@@ -45,6 +45,7 @@ public class ProductController {
 //    Update one product
     @PutMapping("/products/{id}")
     public @ResponseBody String updateOneProduct(@RequestBody Product newProduct, @PathVariable int id){
+
 
              productService.getOneProduct(id)
                 .map(product -> {

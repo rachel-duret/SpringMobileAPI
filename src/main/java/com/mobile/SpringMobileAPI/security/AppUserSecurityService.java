@@ -25,13 +25,14 @@ public class AppUserSecurityService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        AppUser appUser = appUserRepository.findByEmail(email).orElseThrow(
-                ()-> new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, email))
-        ) ;
-        return new User(appUser.getEmail(), appUser.getPassword(), new ArrayList<>());
+        AppUser appUser = appUserRepository.findByEmail(email);
+        if (appUser != null){
+            return new User(appUser.getEmail(), appUser.getPassword(), new ArrayList<>());
+        } else {
+           throw  new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, email));
+        }
 
     }
-
 
 
 }
