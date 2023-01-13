@@ -12,5 +12,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query(value = "SELECT * FROM user WHERE user.app_user_id = ?1 ", nativeQuery = true)
     List<User> findByAllByAppUserId(int appUserId);
+
     Boolean existsByUsername(String username);
 }

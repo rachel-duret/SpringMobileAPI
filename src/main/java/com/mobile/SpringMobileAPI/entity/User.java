@@ -2,6 +2,8 @@ package com.mobile.SpringMobileAPI.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -24,9 +26,11 @@ public class User {
     private int id;
 
     @Column(nullable = false, unique = true)
+    @NotBlank(message = "username is required .")
     private String username;
 
     @Column(nullable = false)
+    @Email(message = "Have to be a valid email.")
     private String email;
 
     @Column(nullable = false)

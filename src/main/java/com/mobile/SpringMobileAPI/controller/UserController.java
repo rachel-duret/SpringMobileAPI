@@ -21,7 +21,7 @@ public class UserController {
         return "New client Added.";
     }
 
-//    Get all clients list
+//    Get all users list
     @GetMapping("/users")
     public List<User> getAllUsers(){
         return userService.getAllUsers();
