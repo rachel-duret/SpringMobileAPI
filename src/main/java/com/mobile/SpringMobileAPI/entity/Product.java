@@ -1,6 +1,7 @@
 package com.mobile.SpringMobileAPI.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 
 import java.util.Date;
@@ -21,16 +22,20 @@ public class Product {
     )
     private int id;
 
-@Column(nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false)
+    @NotBlank(message = "Brand is required.")
     private String brand;
 
-@Column(nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false)
+    @NotBlank(message = "Model is required.")
     private String model;
 
-@Column(nullable = false)
+    @Column(nullable = false)
+    @NotBlank(message = "Price is required.")
     private double price;
 
-@Column(nullable = false)
+    @Column(nullable = false)
+    @NotBlank(message = "Description is required.")
     private  String description;
 
 @Column(nullable = false)

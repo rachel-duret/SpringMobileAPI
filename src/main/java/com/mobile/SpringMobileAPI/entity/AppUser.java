@@ -1,6 +1,10 @@
 package com.mobile.SpringMobileAPI.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.*;
 
@@ -21,12 +25,20 @@ public class AppUser {
     private int id;
 
     @Column(nullable = false, updatable = false, unique = true)
+    @NotBlank(message = "Username is required.")
+    @Min(message = "At list 2 letters", value = 2)
+    @Max(message = "Max 30 letters", value = 30)
     private String appUsername;
 
     @Column(nullable = false)
+    @NotBlank(message = "Email is required.")
+    @Email(message = "Have to be a valid email.")
     private String email;
 
     @Column(nullable = false)
+    @NotBlank(message = "Password is required.")
+    @Min(message = "At list 2 letters", value = 6)
+    @Max(message = "Max 30 letters", value = 30)
     private String password;
 
     @Column(nullable = false)
